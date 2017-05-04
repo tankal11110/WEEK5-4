@@ -1,0 +1,31 @@
+<style>
+   .playlist-row{
+       border-bottom: 2px solid transparent;
+   }
+</style>
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+  
+        <playlists-list [selected]="selected" (selected)="select($event)" (deleted)="delete($event)" [playlists]="playlists"></playlists-list>
+        <div class="form-group">
+             <button class="btn btn-success float-xs-right" (click) = "createNew($event); mode = 1">Nowa Playlista</button>
+        </div>
+    </div>
+
+   <div class="col-sm-6 col-md-4">
+       <div [ngSwitch] = "mode">
+
+           <cotent-card title="Playlista" content="Choose playlist" *ngSwitchDefault></cotent-card>   
+           
+           <cotent-card title="Playlista {{selected.name}}" *ngSwitchCase = "2">   
+               <playlist-detail [playlist]="selected" (editPlaylist) = "edit($event)"></playlist-detail>
+           </cotent-card>
+
+           <cotent-card title="Playlista {{selected.name}}" *ngSwitchCase = "1">
+               <playlist-form [playlist]="edited" (saved)="save($event)"></playlist-form>
+           </cotent-card>
+        </div>
+    </div>
+
+</div>
+
